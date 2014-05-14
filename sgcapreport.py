@@ -25,7 +25,7 @@ except ImportError:
 parser = argparse.ArgumentParser(description='Reports capacity per Symmetrix Storage Group.')
 rflags = parser.add_argument_group('Required arguments')
 rflags.add_argument('-sid',      required=True, help='Symmetrix serial number')
-rflags.add_argument('-offline',  required=True, help='Offline SYMAPIDB filename')
+#rflags.add_argument('-offline',  required=True, help='Offline SYMAPIDB filename')
 sflags = parser.add_argument_group('Additional optional arguments')
 sflags.add_argument('-nochildren',         help='Flag; Skips reporting on Child Storage Groups', action="store_true")
 sflags.add_argument('-csv',                help='Flag; Outputs in CSV format', action="store_true")
@@ -33,8 +33,8 @@ sflags.add_argument('-csv',                help='Flag; Outputs in CSV format', a
 
 args = parser.parse_args()
 
-os.environ['SYMCLI_OFFLINE'] = '1'
-os.environ['SYMCLI_DB_FILE'] = os.path.abspath(args.offline)
+#os.environ['SYMCLI_OFFLINE'] = '1'
+#os.environ['SYMCLI_DB_FILE'] = os.path.abspath(args.offline)
 
 ### Capture SYMCLI TDEV information into ElementTree
 tdevcommand = "symcfg -sid " + args.sid + " list -tdev -gb -output xml_e"
