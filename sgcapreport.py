@@ -81,7 +81,7 @@ for elem in sgtree.iterfind('SG'):
             stdcap = float(member.find('megabytes').text)/1024
             devcapacity = [stdcap, stdcap, stdcap]
         # Add this device's capacity info to the running tally for this SG
-        sgcapacity[sgname] = map(sum, zip(sgcapacity[sgname], devcapacity))
+        sgcapacity[sgname] = list(map(sum, zip(sgcapacity[sgname], devcapacity)))
     # Iterate through an SG's SG members for Parent/Child information
     for cascadesg in elem.iterfind('SG_Info/SG_group_info/SG'):
         if cascadesg.find('Cascade_Status').text == 'IsChild':
@@ -98,7 +98,7 @@ for elem in sgtree.iterfind('SG'):
 
 # Build the PrettyTable
 if args.csv:
-    print "Storage Group,Total GB,Allocated GB,Written GB,Parents,Children"
+    print("Storage Group,Total GB,Allocated GB,Written GB,Parents,Children")
 
 
 report = PrettyTable(["Storage Group", "Total GB", "Allocated GB", "Written GB", "Parents", "Children"])
@@ -112,7 +112,7 @@ for sg, mb in sgcapacity.items():
         else:
             parents = ",".join(sgparents[sg])
     if args.csv:
-        print ",".join([sg, str(sgcapacity[sg][0]), str(sgcapacity[sg][1]), str(sgcapacity[sg][2]), parents, children])
+        print(",".join([sg, str(sgcapacity[sg][0]), str(sgcapacity[sg][1]), str(sgcapacity[sg][2]), parents, children]))
     else:
         report.add_row([sg, sgcapacity[sg][0], sgcapacity[sg][1], sgcapacity[sg][2], parents, children])
 
@@ -123,4 +123,4 @@ report.float_format = "10.1"
 report.max_width["Children"] = 30
 report.format = True
 if not args.csv:
-    print report
+    print(report)
