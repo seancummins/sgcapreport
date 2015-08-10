@@ -1,11 +1,11 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
 """
 sgcapreport.py - Reports capacity per Storage Group
 
 Requirements:
-- Python 2.7.x
+- Python 3.x
 - prettytable -- "pip install prettytable" to install
 - EMC Solutions Enabler
 - SYMCLI bin directory in PATH
