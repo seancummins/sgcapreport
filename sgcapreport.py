@@ -47,7 +47,14 @@ tdevcap = dict()
 
 # Iterate through all TDEVs, capturing capacity information
 for elem in tdevtree.iterfind('Symmetrix/ThinDevs/Device'):
-    tdevcap[elem.find('dev_name').text] = [float(elem.find('total_tracks_gb').text), float(elem.find('alloc_tracks_gb').text), float(elem.find('written_tracks_gb').text)]
+    alloc_tracks_gb = float(elem.find('alloc_tracks_gb').text)
+    written_tracks_gb = elem.find('written_tracks_gb').text
+    if written_tracks_gb == "N/A":
+        written_tracks_gb = alloc_tracks_gb
+    else:
+        written_tracks_gb = float(written_tracks_gb)
+
+    tdevcap[elem.find('dev_name').text] = [float(elem.find('total_tracks_gb').text), alloc_tracks_gb, written_tracks_gb]
 
 
 ### Capture SYMCLI SG information into ElementTree
